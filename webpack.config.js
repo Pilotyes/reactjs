@@ -20,6 +20,12 @@ module.exports = {
                 exclude: /node_modules/,
                 options: {
                     presets: ["@babel/env", "@babel/preset-react"],
+                    plugins: [
+                        [
+                            "@babel/plugin-proposal-class-properties",
+                            { loose: true },
+                        ],
+                    ],
                 },
             },
         ],
@@ -32,4 +38,5 @@ module.exports = {
             template: "./src/index.html",
         }),
     ],
+    devtool: "inline-source-map",
 }
