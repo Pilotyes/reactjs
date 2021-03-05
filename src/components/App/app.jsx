@@ -1,13 +1,8 @@
 import React from "react";
-import { MessageField } from "../MessageField";
+import { Layout } from "../Layout";
 
-class App extends React.Component {
-    render() {
-        return <div id="test-id">
-            <h2>Hello from React</h2>
-            <MessageField />
-            </div>;
-    }
+function App() {
+    return <Layout />
 }
 
 export { App };
