@@ -1,0 +1,31 @@
+.message {
+    background-color: lightgray;
+    border-radius: 10px;
+    padding: 10px;
+    width: 25%;
+}
+
+.message__left {
+    margin-left: 20px;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: auto;
+    text-align: left;
+}
+
+.message__right {
+    margin-left: auto;
+    margin-right: 20px;
+    padding-left: auto;
+    padding-right: 10px;
+    text-align: right;
+}
+
+.message__text {
+    font-size: 16px;
+}
+
+.message__author {
+    font-size: 12px;
+    font-style: italic;
+}
