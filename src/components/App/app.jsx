@@ -1,8 +1,17 @@
 import React from "react";
-import { Layout } from "../Layout";
+
+import "../../style.css";
+
+import Container from "@material-ui/core/Container";
+
+import { Header } from "../Header";
+import { Router } from "../Router";
 
 function App() {
-    return <Layout />
+    return <Container maxWidth="md" style={{height: "100%"}}>
+        <Header />
+        <Router />
+    </Container>;
 }
 
 export { App };

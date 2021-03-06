@@ -1,19 +1,28 @@
 import React from "react";
+import { Component } from "react";
+import { withRouter } from "react-router";
+import PropTypes from "prop-types";
 
 import { ChatList } from "../ChatList";
-import { Header } from "../Header";
 import { MessageField } from "../MessageField";
 
-import "../../style.css";
+class _Layout extends Component {
+    static propTypes = {
+        match: PropTypes.object.isRequired,
+        location: PropTypes.object.isRequired,
+        history: PropTypes.object.isRequired,
+    };
 
-import Container from "@material-ui/core/Container";
+    render() {
+        const { match } = this.props;
 
-function Layout() {
-    return <Container maxWidth="md" style={{height: "100%"}}>
-        <Header />
-        <ChatList />
-        <MessageField />
-    </Container>;
+        return <>
+            <ChatList />
+            <MessageField chatID={match.params.chatID} />
+        </>;
+    };
 };
+
+const Layout = withRouter(_Layout);
 
 export { Layout };
