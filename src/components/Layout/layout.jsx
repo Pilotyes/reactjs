@@ -4,7 +4,7 @@ import { withRouter } from "react-router";
 import PropTypes from "prop-types";
 
 import { ChatList } from "../ChatList";
-import { MessageField } from "../MessageField";
+import { Messages } from "../Messages";
 
 class _Layout extends Component {
     static propTypes = {
@@ -18,7 +18,7 @@ class _Layout extends Component {
 
         return <>
             <ChatList />
-            <MessageField chatID={match.params.chatID} />
+            <Messages chatID={match.params.chatID} />
         </>;
     };
 };

@@ -1,5 +1,6 @@
 import React, { createRef } from "react";
 import { Component } from "react";
+import { connect } from "react-redux";
 import { Message } from "../Message";
 import PropTypes from "prop-types";
 
@@ -7,41 +8,21 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
 
-class MessageField extends Component {
+import { sendMessage } from "../../redux/actions/messageActions";
+
+class _Messages extends Component {
     messagesRef = createRef();
     textFieldRef = createRef();
 
     static propTypes = {
         chatID: PropTypes.string,
+        chats: PropTypes.array.isRequired,
+        messages: PropTypes.array.isRequired,
+        sendMessage: PropTypes.func.isRequired,
     };
 
     state = {
-        chats: [
-            {
-                name: "Chat 1",
-                messages: [],
-            },
-            {
-                name: "Chat 2",
-                messages: [],
-            },
-            {
-                name: "Chat 3",
-                messages: [],
-            },
-            {
-                name: "Chat 4",
-                messages: [],
-            },
-            {
-                name: "Chat 5",
-                messages: [],
-            },
-        ],
-
         lastMessageText: "", 
-
-        messages: [],
     };
 
     addNewMessage = (author, text, owner) => {
@@ -51,17 +32,15 @@ class MessageField extends Component {
             return;
         };
 
-        const newMessageID = this.state.messages.length;
-        const newMessage = {id: newMessageID, author: author, text: text, owner: owner};
-        this.state.chats[chatID].messages = [...this.state.chats[chatID].messages, newMessageID],
+        text && this.props.sendMessage(author, text, owner, chatID);
+
         this.setState({
-            messages: [...this.state.messages, newMessage],
             lastMessageText: text,
         });
     };
 
     componentDidUpdate() {
-        if (this.state.messages.length % 2 === 1) {
+        if (this.props.messages.length % 2 === 1) {
             setTimeout(() => {
                 this.addNewMessage("Продавец слона", "Все говорят \"" + this.state.lastMessageText + "\", а ты купи слона", "robot");
             }, Math.floor(Math.random() * 1000));
@@ -84,7 +63,7 @@ class MessageField extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         this.addNewMessage("Человек", this.textFieldRef.current.value, "me");
-            this.textFieldRef.current.value = "";
+        this.textFieldRef.current.value = "";
     };
 
     render() {
@@ -97,8 +76,8 @@ class MessageField extends Component {
 
         return <div className="messageList layoutBody">
             <div className="messages" ref={this.messagesRef}>
-                {this.state.chats[chatID].messages.map((item, index) => (
-                    <Message key={index} {...this.state.messages[item]} />
+                {this.props.chats[chatID] && this.props.chats[chatID].messages.map((item, index) => (
+                    <Message key={index} {...this.props.messages[item]} />
                 ))}
             </div>
             <div className="messageFieldFooter">
@@ -114,4 +93,13 @@ class MessageField extends Component {
     };
 };
 
-export { MessageField };
+const mapStateToProps = (state) => {
+    return {
+        messages: state.chat.messages,
+        chats: state.chat.chats,
+    }
+};
+
+const Messages = connect(mapStateToProps, { sendMessage })(_Messages);
+
+export { Messages };

@@ -1,7 +1,5 @@
 import React from "react";
 
-import "../../style.css";
-
 import Container from "@material-ui/core/Container";
 
 import { Header } from "../Header";
