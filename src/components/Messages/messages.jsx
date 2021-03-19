@@ -40,12 +40,6 @@ class _Messages extends Component {
     };
 
     componentDidUpdate() {
-        if (this.props.messages.length % 2 === 1) {
-            setTimeout(() => {
-                this.addNewMessage("Продавец слона", "Все говорят \"" + this.state.lastMessageText + "\", а ты купи слона", "robot");
-            }, Math.floor(Math.random() * 1000));
-        }
-
         this.messagesRef.current.scrollTop = this.messagesRef.current.scrollHeight;
     };
 

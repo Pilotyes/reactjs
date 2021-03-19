@@ -52,10 +52,19 @@ class _ChatList extends Component {
         return <div className="chatList layoutBody">
             <List component="nav">
                 {this.props.chats.map((chat, index) => (
-                    <NavLink key={index} to={"/chat/" + (index + 1)} activeClassName="selectedChat">
-                        <ListItem button>
-                            <ListItemText primary={chat.name} />
-                        </ListItem>
+                    
+                    <NavLink key={index} to={"/chat/" + (index + 1)} activeClassName="selectedChat" >
+                        {function() {
+                            console.log(chat);
+                            if (chat.isHighlighted == true) {
+                                return <ListItem button className={"highlighted"} >
+                                    <ListItemText primary={chat.name} />
+                                </ListItem>
+                            }
+                            return <ListItem button >
+                                <ListItemText primary={chat.name} />
+                            </ListItem>
+                        }()}
                         <Divider />
                     </NavLink>
                 ))}

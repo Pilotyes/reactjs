@@ -7,22 +7,27 @@ const initialState = {
     chats: [
         {
             name: "Chat 1",
+            isHighlighted: false,
             messages: [],
         },
         {
             name: "Chat 2",
+            isHighlighted: false,
             messages: [],
         },
         {
             name: "Chat 3",
+            isHighlighted: false,
             messages: [],
         },
         {
             name: "Chat 4",
+            isHighlighted: false,
             messages: [],
         },
         {
             name: "Chat 5",
+            isHighlighted: false,
             messages: [],
         },
     ],
