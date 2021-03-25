@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
 
-import { sendMessage } from "../../redux/actions/messageActions";
+import { sendMessage, loadMessages } from "../../redux/actions/messageActions";
 
 class _Messages extends Component {
     messagesRef = createRef();
@@ -18,7 +18,9 @@ class _Messages extends Component {
         chatID: PropTypes.string,
         chats: PropTypes.array.isRequired,
         messages: PropTypes.array.isRequired,
+        isLoading: PropTypes.bool.isRequired,
         sendMessage: PropTypes.func.isRequired,
+        loadMessages: PropTypes.func.isRequired,
     };
 
     state = {
@@ -40,11 +42,14 @@ class _Messages extends Component {
     };
 
     componentDidUpdate() {
-        this.messagesRef.current.scrollTop = this.messagesRef.current.scrollHeight;
+        if (this.messagesRef.current) {
+            this.messagesRef.current.scrollTop = this.messagesRef.current.scrollHeight;
+        }
     };
 
     componentDidMount() {
         this.textFieldRef.current.focus();
+        this.props.loadMessages();
     };
 
     handleKeyDown = (event) => {
@@ -61,12 +66,20 @@ class _Messages extends Component {
     };
 
     render() {
+        const { isLoading = false } = this.props;
+
         let { chatID } = this.props;
         chatID = parseInt(chatID) - 1;
 
         if (isNaN(chatID)) {
             chatID = 0;
         };
+
+        if (this.props.isLoading) {
+            return <div className="messageList layoutBody">
+                Loading...
+            </div>
+        }
 
         return <div className="messageList layoutBody">
             <div className="messages" ref={this.messagesRef}>
@@ -91,9 +104,10 @@ const mapStateToProps = (state) => {
     return {
         messages: state.chat.messages,
         chats: state.chat.chats,
+        isLoading: state.chat.isLoading,
     }
 };
 
-const Messages = connect(mapStateToProps, { sendMessage })(_Messages);
+const Messages = connect(mapStateToProps, { sendMessage, loadMessages })(_Messages);
 
 export { Messages };

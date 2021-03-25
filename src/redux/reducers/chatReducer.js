@@ -1,5 +1,6 @@
-import { SEND_MESSAGE } from "../actions/messageActions"
+import { SEND_MESSAGE, START_MESSAGES_LOADING, ERROR_MESSAGES_LOADING, SUCCESS_MESSAGES_LOADING } from "../actions/messageActions"
 import { CREATE_CHAT } from "../actions/chatActions"
+import { Store } from "@material-ui/icons";
 
 const initialState = {
     messages: [
@@ -31,6 +32,7 @@ const initialState = {
             messages: [],
         },
     ],
+    isLoading: false,
 };
 
 export const chatReducer = (state = initialState, action) => {
@@ -66,6 +68,37 @@ export const chatReducer = (state = initialState, action) => {
                     },
                 ],
             };
+        case START_MESSAGES_LOADING: {
+            return {
+                ...state,
+                isLoading: true,
+            }
+        }
+        case ERROR_MESSAGES_LOADING: {
+            return {
+                ...state,
+                isLoading: false,
+            }
+        }
+        case SUCCESS_MESSAGES_LOADING: {
+            var messages = state.messages;
+            var _chats = state.chats;
+
+            for (const key in action.payload) {
+                const chatID = parseInt(key);
+                for (const message in action.payload[key]) {
+                    _chats[chatID].messages = [..._chats[chatID].messages, parseInt(message)];
+                    messages = [...messages, action.payload[key][message]];
+                }
+            }
+
+            return {
+                ...state,
+                messages: messages,
+                chats: _chats,
+                isLoading: false,
+            }
+        }
         default:
             return state;
     };
