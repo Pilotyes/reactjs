@@ -1,0 +1,47 @@
+html, body {
+    height: 100%;
+}
+
+.layoutBody {
+    height: 800px;
+}
+
+.chatList {
+    background-color: lightgrey;
+    float: left;
+    margin-left: 0px;
+    overflow: auto;
+    width: 30%;
+}
+
+.messages {
+    height: 100%;
+    overflow: auto;
+}
+
+.messageList {
+    background-color: lightsteelblue;
+    margin-left: auto;
+    margin-right: 0px;
+    position: relative;
+    width: 70%;
+}
+
+.messageFieldFooter {
+    bottom: 0px;
+    position: absolute;
+    width: 100%;
+}
+
+.selectedChat div{
+    background-color: #3f51b5;
+    color: white;
+}
+
+.highlighted {
+    background-color:lightsalmon;
+}
+
+.MuiButtonBase-root {
+    background-color: inherit;
+}

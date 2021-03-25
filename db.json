@@ -1,0 +1,21 @@
+{
+    "messages": {
+        "0": [
+            {
+                "id": 0,
+                "author": "Человек",
+                "text": "Hello",
+                "owner": "me"
+            },
+            {
+                "id": 1,
+                "author": "Продавец слона",
+                "text": "Все говорят \"qewrqwer\", а ты купи слона",
+                "owner": "robot"
+            }
+        ]
+    },
+    "profile": {
+        "userName": "Alena"
+    }
+}
